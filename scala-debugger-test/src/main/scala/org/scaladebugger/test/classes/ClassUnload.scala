@@ -13,7 +13,7 @@ object ClassUnload extends App {
 
     val className = "org.scaladebugger.test.jar.CustomClass"
     val klass = urlClassLoader.loadClass(className)
-    val instance = klass.newInstance() // Causes class to be loaded
+    val instance = klass.getDeclaredConstructor().newInstance() // Causes class to be loaded
 
     println(s"Loading classes from ${testJarUrl.getPath}")
     println(s"Class[CustomClass]: $klass")

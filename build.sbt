@@ -1,3 +1,4 @@
+ThisBuild / evictionErrorLevel := Level.Info
 //
 // DEBUGGER API PROJECT CONFIGURATION
 //
@@ -85,7 +86,6 @@ lazy val sbtScalaDebuggerPlugin = project
   .settings(Defaults.itSettings: _*)
   .settings(SbtPlugin.settings: _*)
   .settings(name := "sbt-scala-debugger")
-  .enablePlugins(CrossPerProjectPlugin)
 
 //
 // MAIN PROJECT CONFIGURATION
@@ -106,5 +106,4 @@ lazy val root = project
     scalaDebuggerLanguage,
     scalaDebuggerTool,
     sbtScalaDebuggerPlugin
-  ).enablePlugins(CrossPerProjectPlugin)
-
+  )

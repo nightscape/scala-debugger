@@ -214,7 +214,7 @@ class JDITools private[utils] extends JDILoader with Logging {
    * @return The process instance
    */
   protected def spawnJavaProcessRetrieval(): Process =
-    Runtime.getRuntime.exec("jps -vl")
+    Runtime.getRuntime.exec(Array("jps", "-vl"))
 
   /**
    * Creates a new JDI process instance.

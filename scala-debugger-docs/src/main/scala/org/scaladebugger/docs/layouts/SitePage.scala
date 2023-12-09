@@ -1,6 +1,6 @@
 package org.scaladebugger.docs.layouts
 
-import java.net.URL
+import java.net.URI
 
 import org.scaladebugger.docs.layouts.partials.common._
 import org.scaladebugger.docs.layouts.partials.common.vendor._
@@ -73,7 +73,7 @@ abstract class SitePage(
     Seq(
       Footer(
         authorName = "Chip Senkbeil",
-        authorUrl = new URL("https://chipsenkbeil.com/"),
+        authorUrl = new URI("https://chipsenkbeil.com/").toURL(),
         startYear = 2015
       ),
       ClipboardJS(),

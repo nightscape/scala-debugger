@@ -3,7 +3,7 @@ import Keys._
 
 object Macros {
   /** Version used for paradise and quasiquotes. */
-  val macroVersion = "2.1.0"
+  val macroVersion = "2.1.1"
 
   /** Compiler plugin settings related to macros. */
   val pluginSettings = Seq(

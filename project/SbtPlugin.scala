@@ -6,7 +6,7 @@ object SbtPlugin {
     sbtPlugin := true,
 
     // Force respect (using sbt-doge) of cross scala versions
-    scalaVersion := "2.10.6",
-    crossScalaVersions := Seq("2.10.6")
+    scalaVersion := "2.12.18",
+    crossScalaVersions := Seq("2.12.18")
   )
 }

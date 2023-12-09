@@ -17,18 +17,16 @@ object Tool {
     fork in IntegrationTest := true,
 
     // Contains the version of Ammonite used
-    ammoniteVersion := "COMMIT-cc9941d",
-
+    ammoniteVersion := "2.5.11",
     libraryDependencies ++= Seq(
       "com.lihaoyi" % "ammonite" % ammoniteVersion.value cross CrossVersion.full,
-      "com.lihaoyi" % "ammonite-util" % ammoniteVersion.value cross CrossVersion.full,
       "com.lihaoyi" %% "ammonite-terminal" % ammoniteVersion.value,
       "org.rogach" %% "scallop" % "2.0.5",
       "org.slf4j" % "slf4j-api" % "1.7.5",
       "org.slf4j" % "slf4j-log4j12" % "1.7.5",
       "log4j" % "log4j" % "1.2.17" % "test,it",
-      "org.scalatest" %% "scalatest" % "3.0.0" % "test,it",
-      "org.scalamock" %% "scalamock-scalatest-support" % "3.4.2" % "test,it"
+      "org.scalatest" %% "scalatest" % "3.0.9" % "test,it",
+      "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % "test,it"
     ),
 
     // Give our tool a shorter name of "sdb"
@@ -39,7 +37,7 @@ object Tool {
       // Either -2.10, -2.11, -2.12, or empty string
       val postfix = CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((major, minor)) => "-" + major + "." + minor
-        case None => ""
+        case None                 => ""
       }
       toolName.value + "-" + version.value + postfix + ".jar"
     },
@@ -47,7 +45,14 @@ object Tool {
     // Exclude tools.jar (JDI) since not allowed to ship without JDK
     assemblyExcludedJars in assembly := {
       val cp = (fullClasspath in assembly).value
-      cp filter {_.data.getName == "tools.jar"}
+      cp filter { _.data.getName == "tools.jar" }
+    },
+    assemblyMergeStrategy in assembly := {
+      case x if x.endsWith("module-info.class") => sbtassembly.MergeStrategy.discard
+      case x if x.endsWith(".properties") => sbtassembly.MergeStrategy.concat
+      case x =>
+        val oldStrategy = (assemblyMergeStrategy in assembly).value
+        oldStrategy(x)
     }
   )
 }

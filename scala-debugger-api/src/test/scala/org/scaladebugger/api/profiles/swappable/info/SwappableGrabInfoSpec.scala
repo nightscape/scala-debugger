@@ -7,7 +7,6 @@ import org.scaladebugger.api.profiles.traits.info._
 import org.scaladebugger.test.helpers.ParallelMockFunSpec
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FunSpec, Matchers, ParallelTestExecution}
-import sun.reflect.FieldInfo
 
 class SwappableGrabInfoSpec extends ParallelMockFunSpec
 {

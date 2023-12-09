@@ -81,7 +81,7 @@ class FancyTerminal(
       case _ => (hl(buffer), 0)
     }
 
-    (fansi.Str(data._1), data._2)
+    (fansi.Str(data._1.toString()), data._2)
   }
 
   /**

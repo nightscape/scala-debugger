@@ -26,10 +26,10 @@ object Common {
       "-Xfatal-warnings"
     ) ++ (CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 10)) => Seq(
-        "-Ywarn-all", "-target:jvm-1.6"
+        "-Ywarn-all", "-target:jvm-1.8"
       )
       case Some((2, 11)) => Seq(
-        "-target:jvm-1.6"
+        "-target:jvm-1.8"
       )
       case Some((2, 12)) => Seq(
         "-target:jvm-1.8"
@@ -50,19 +50,18 @@ object Common {
     }),
 
     javacOptions ++= Seq(
-      "-source", "1.6", "-target", "1.6", "-Xlint:all", "-Werror",
+      "-source", "1.8", "-target", "1.8", "-Xlint:all", "-Werror",
       "-Xlint:-options", "-Xlint:-path", "-Xlint:-processing"
     ),
-  
+
     scalacOptions in (Compile, doc) ++= Seq(
       "-no-link-warnings" // Suppress problems with Scaladoc @throws links
     ),
 
     // Options provided to forked JVMs through sbt, based on our .jvmopts file
     javaOptions ++= Seq(
-      "-Xms1024M", "-Xmx4096M", "-Xss2m", "-XX:MaxPermSize=256M",
+      "-Xms1024M", "-Xmx4096M", "-Xss2m",
       "-XX:ReservedCodeCacheSize=256M", "-XX:+TieredCompilation",
-      "-XX:+CMSPermGenSweepingEnabled", "-XX:+CMSClassUnloadingEnabled",
       "-XX:+UseConcMarkSweepGC", "-XX:+HeapDumpOnOutOfMemoryError"
     ),
 
@@ -138,14 +137,14 @@ object Common {
         Seq(
           // Default version when not cross-compiling
           scalaVersion := "2.10.6",
-          crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
+          crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.18")
         )
       // If JDK 9 or higher
       } else {
         Seq(
           // Default version when not cross-compiling
-          scalaVersion := "2.12.1",
-          crossScalaVersions := Seq("2.12.1")
+          scalaVersion := "2.12.18",
+          crossScalaVersions := Seq("2.12.18")
         )
       }
     }

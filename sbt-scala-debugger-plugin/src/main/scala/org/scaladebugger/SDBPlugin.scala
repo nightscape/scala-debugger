@@ -35,7 +35,7 @@ object SDBPlugin extends AutoPlugin {
       val mainClass = mainClassTask.value getOrElse sys.error("No main class detected.")
       val userArgs = parser.parsed
       val args = if (userArgs.isEmpty) defaultArgs.value else userArgs
-      scalaRun.value.run(mainClass, data(classpath.value), args, streams.value.log) foreach sys.error
+      scalaRun.value.run(mainClass, data(classpath.value), args, streams.value.log) foreach(_ => sys.error("Failure"))
     }
   }
 
@@ -76,10 +76,10 @@ object SDBPlugin extends AutoPlugin {
        * taking into account the extra libraryDependencies above, and we can also supply default arguments
        * (initialCommands as predef). */
       run := {
-        runTask(fullClasspath, mainClass in run, runner in run, (initialCommands in console).map(defaultArgs)).evaluated
+        runTask(fullClasspath, run / mainClass, run / runner, (console / initialCommands).map(defaultArgs)).evaluated
       },
       runMain := {
-        Defaults.runMainTask(fullClasspath, runner in run).evaluated
+        Defaults.runMainTask(fullClasspath, run / runner).evaluated
       },
 
       mainClass := Some("org.scaladebugger.tool.Main"),
